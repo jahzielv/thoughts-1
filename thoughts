@@ -2,8 +2,11 @@
 cmd="$1"
 set -euf pipefail
 stuffDir=$HOME/.local/share/thoughts
-# uncomment the line below if you're on MacOS or another BSD
-# alias sed=gsed
+if [ $(uname) == "Darwin" ]
+then
+    alias sed=gsed
+fi
+
 
 # "update" command
 if [ "$cmd" = "update" ]; then
