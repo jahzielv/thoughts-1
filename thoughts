@@ -2,6 +2,8 @@
 cmd="$1"
 set -euf pipefail
 stuffDir=$HOME/.local/share/thoughts
+# uncomment the line below if you're on MacOS or another BSD
+# alias sed=gsed
 
 # "update" command
 if [ "$cmd" = "update" ]; then
@@ -66,7 +68,7 @@ fi
 tail -c 1 < "$rand".txt | read -r _ || echo >> "$rand".txt
 
 # linkify links!
-gsed -E 's|https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)|<a href=&>&<\/a>|' < "$rand".txt > linkified.txt
+sed -E 's|https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)|<a href=&>&<\/a>|' < "$rand".txt > linkified.txt
 
 # replace all newlines with <br>
 # and then remove the final <br>
