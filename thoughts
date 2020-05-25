@@ -65,9 +65,12 @@ fi
 # If this thought doesn't have a trailing newline, add one
 tail -c 1 < "$rand".txt | read -r _ || echo >> "$rand".txt
 
+# linkify links!
+gsed -E 's|https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)|<a href=&>&<\/a>|' < "$rand".txt > linkified.txt
+
 # replace all newlines with <br>
 # and then remove the final <br>
-sed 's/$/<br>/' "$rand".txt > temp.txt
+sed 's/$/<br>/' linkified.txt > temp.txt
 mv temp.txt "$rand".txt
 thought=$(sed '$ s/.\{4\}$//' "$rand".txt)
 rm "$rand".txt
